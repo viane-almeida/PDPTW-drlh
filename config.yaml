@@ -1,0 +1,77 @@
+# Configuration file for DRLH CVRP Solver
+# This file contains default parameters that can be overridden via command line
+
+# Problem Configuration
+problem:
+  size: 50                    # Number of customers
+  max_steps: 200            # Maximum steps per episode
+  T_0: null                  # Initial temperature (null for dynamic)
+  T_f: 0.05                  # Final temperature
+  cs: null                   # Cooling schedule (null for dynamic)
+  warmup_steps: null         # Warmup steps for dynamic temperature
+  pos_deltas_target: null    # Target positive deltas for warmup
+
+# Agent Configuration
+agent:
+  learning_rate: 0.0003      # Learning rate for neural networks
+  gamma: 0.99                # Discount factor
+  gae_lambda: 0.95           # GAE lambda parameter
+  policy_clip: 0.2           # PPO policy clipping parameter
+  batch_size: 64             # Batch size for training
+  n_epochs: 10               # Number of PPO epochs per update
+  n_steps_lookahead: 10      # Steps to look ahead for advantage calculation
+  normalization: "last_100k_normalize"  # State normalization method
+  last_100k_size: 1000000    # Buffer size for normalization
+
+# Environment Configuration
+environment:
+  state_representation: "reduced_dist___dist_from_min___dist___min_dist___temp___cs___no_improvement___index_step___was_changed___unseen"
+  reward_function: "5310"    # Reward function type
+  acceptance_function: "simulated_annealing_ac"  # Acceptance criteria
+
+# Training Configuration
+training:
+  episodes: 1000             # Number of training episodes
+  log_interval: 100          # Logging interval
+  save_interval: 500         # Model save interval (-1 for end only)
+  print_interval: 100        # Print progress interval
+  resume: false              # Resume from checkpoint
+
+# Paths
+paths:
+  train_dataset: "data/pdptw/pdptw-training-96"
+  test_dataset: "data/pdptw/pdptw-test-6"
+  logdir: null               # Auto-generate if null
+
+# Execution
+execution:
+  cuda: true                 # Use CUDA if available
+  seed: null                 # Random seed (null for random)
+  verbose: true              # Verbose output
+
+# Available Options Reference:
+# state_representation options:
+#   - reduced_dist___dist_from_min___no_improvement___index_step___was_changed___unseen
+#   - reduced_dist___dist_from_min___dist___min_dist___no_improvement___index_step___was_changed___unseen
+#   - reduced_dist___dist_from_min___temp___cs___no_improvement___index_step___was_changed___unseen
+#   - reduced_dist___dist_from_min___dist___min_dist___temp___cs___no_improvement___index_step___was_changed___unseen
+#
+# reward_function options:
+#   - "5310": Encourages new best (5) and improvements (3), accepts diversification (1)
+#   - "10310": Higher reward for new best solutions
+#   - "pm": Simple +1/-1 reward
+#   - "pzm": +1/-1 with neutral diversification
+#   - "delta_change": Proportional to improvement
+#   - "delta_change_scaled": Scaled improvement rewards
+#   - "new_best": Reward only for new best solutions
+#   - "new_best_p1": Binary reward for new best
+#   - "min_distance": Distance-based reward
+#
+# normalization options:
+#   - "max_normalize": Scale by maximum values
+#   - "last_100k_normalize": Running statistics normalization
+#   - "no_normalization": No normalization
+#
+# acceptance_function options:
+#   - "simulated_annealing_ac": Temperature-based acceptance
+#   - "record_to_record_ac": Threshold-based acceptance

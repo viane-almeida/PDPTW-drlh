@@ -1,0 +1,22 @@
+📊 Final Results Summary
+====================================================================================================
+
+Model: logs/pdptw_100ep_1h_stable/models/final_model.pt
+Dataset: data/pdptw/pdptw-test-6
+Test Date: 2025-09-01 07:43:59
+
+| Instance                  |            Cost |   Time (seconds) | Problem Size             |
+|---------------------------|-----------------|------------------|--------------------------|
+| Call_130_Vehicle_40.txt   |   19,145,393.00 |           12.80s | 130 calls, 40 vehicles   |
+| Call_18_Vehicle_5.txt     |    2,374,420.00 |            8.63s | 18 calls, 5 vehicles     |
+| Call_300_Vehicle_90.txt   |   41,563,797.00 |           17.08s | 300 calls, 90 vehicles   |
+| Call_35_Vehicle_7.txt     |    5,505,203.00 |            9.04s | 35 calls, 7 vehicles     |
+| Call_7_Vehicle_3.txt      |    1,134,176.00 |            8.02s | 7 calls, 3 vehicles      |
+| Call_80_Vehicle_20.txt    |   12,397,625.00 |           10.72s | 80 calls, 20 vehicles    |
+
+📈 Overall Performance
+--------------------------------------------------
+Average cost: 13,686,769.00
+Average time: 11.05 seconds per instance
+Total instances: 6
+Total test time: 66.28 seconds
